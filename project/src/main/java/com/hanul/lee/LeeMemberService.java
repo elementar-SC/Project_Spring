@@ -2,7 +2,7 @@ package com.hanul.lee;
 
 import java.util.HashMap;
 
-public class LeeMemberService {
+public interface LeeMemberService {
 	//CRUD(Create, Read, Update, Delete)
 	boolean member_join(LeeMemberVO vo); //회원가입시 회원정보저장
 	LeeMemberVO member_login(HashMap<String, String> map); //로그인처리

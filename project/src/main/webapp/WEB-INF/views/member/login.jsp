@@ -28,11 +28,15 @@ ul {
 	transform:translate(-50%, -50%);  
 }
 .login ul li { margin:10px 0; }
-.login input { width:400px; height: 38px; box-sizing: border-box; border-radius: 25px; padding: 0 15px; } 
+.login input { width:400px; height: 38px; box-sizing: border-box; border-radius: 13px; padding: 0 15px; border: 0px solid #ffffff; opacity: 0.7; } 
+.login input:focus { border: 1px solid #5ad5fa !important;} 
 .login input[type=button] {
 	background-color: #3367d6; border: none; color:#fff;
 	cursor: pointer;
+	opacity: 0.8;
 } 
+
+
 .chk {
 	
 }
@@ -64,13 +68,15 @@ li {color:white;}
 		<li><input type='text' id='id' class='chk' placeholder="아이디"></li>
 		<li><input type='password' id='pw' class='chk' placeholder="비밀번호"></li>
 		<li><input type='button' value='로그인' onclick="login()"></li>
-		<li><a href="">회원가입</a>│<a href="">비밀번호찾기</a></li>
+		<li><input type='button' value='회원가입' onclick="join()"></li>
+		<li><a href="">비밀번호찾기</a></li>
 		<li><hr></li>
 		<li><button class='btn-social-login' style='background:#1FC700'><i class="xi-3x xi-naver"></i></button>
 		<button class='btn-social-login' style='background:#FFEB00'><i class="xi-3x xi-kakaotalk text-dark"></i></button></li>
 	</ul>
 	</div>
 </div>
+
 <script type="text/javascript">
 $('#pw').keyup(function(e){
 	if( e.keyCode==13 ) login();
@@ -80,7 +86,7 @@ function login(){
 	if( emptyCheck() ){
 		
 		$.ajax({
-			url: 'iot_login',
+			url: 'home',
 			data: { id:$('#id').val(), pw:$('#pw').val() },
 			success: function( response ){
 				if( response )
@@ -95,7 +101,7 @@ function login(){
 		});
 	}	
 }
-
 </script>
+
 </body>
 </html>

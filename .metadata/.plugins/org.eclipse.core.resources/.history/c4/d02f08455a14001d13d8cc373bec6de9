@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.mapper">
+
+<!-- 회원정보신규저장(회원가입) -->
+<insert id='join'>
+insert into member (id, name, gender, email, social
+					, birth, phone, address, post, salt, salt_pw )
+values (#{id}, #{name}, #{gender}, #{email}, #{social, jdbcType=VARCHAR}
+		, #{birth, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}
+		, #{address, jdbcType=VARCHAR}, #{post, jdbcType=VARCHAR}
+		, #{salt, jdbcType=VARCHAR}, #{salt_pw, jdbcType=VARCHAR})
+</insert>
+
+<!-- 회원정보변경저장 -->
+<update id="update">
+update member set name=#{name}, email=#{email}, gender=#{gender}
+					, social=#{social}
+where id=#{id}
+</update>
+
+<!-- 아이디중복확인(아이디존재여부) -->
+<select id="id_check" resultType="integer">
+select count(*) from member where id=#{id}
+</select>
+
+<!-- 비밀번호재발급시 salt, 암호화된 비밀번호 변경 -->
+<update id="reset_password">
+update member set salt=#{salt}, salt_pw=#{salt_pw}
+where id=#{id}
+</update>
+
+<!-- 회원id의 salt조회 -->
+<select id="salt" resultType='String'>
+select salt from member where id=#{id}
+</select>
+
+<!-- 로그인 -->
+<select id="login" resultType="member.MemberVO">
+select * from member
+where id=#{id} and salt_pw=#{pw}
+</select>
+
+</mapper>
