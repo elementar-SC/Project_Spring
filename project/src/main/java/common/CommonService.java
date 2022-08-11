@@ -41,78 +41,6 @@ public class CommonService {
 		return json.toMap();
 	}
 	
-	//첨부파일 다운로드처리
-	public void fileDownload(String filename, String filepath
-							, HttpServletRequest request
-							, HttpServletResponse response
-							, HttpSession session) {
-		//다운로드할 파일객체 생성
-		//특정 위치에 있는 경우
-		String app = "d://app" + request.getContextPath();
-		//application 내부에 있는 경우
-		String resources = session.getServletContext()
-							.getRealPath("resources");
-		File file = new File( app+ "/" + filepath );
-		//다운로드할 파일의 마임타입을 지정
-		String mime 
-			= session.getServletContext().getMimeType(filename);
-		response.setContentType(mime);
-		
-		try {
-			filename = URLEncoder.encode(filename, "utf-8");
-			response.setHeader("content-disposition"
-								, "attachment; filename="+filename);
-			
-			ServletOutputStream out = response.getOutputStream();
-			FileCopyUtils.copy( new FileInputStream(file), out);	
-		}catch(Exception e) {
-		}
-	}
-	
-	
-	//첨부파일 업로드처리
-	public String fileUpload(String category, MultipartFile file
-							, HttpSession session
-							, HttpServletRequest request) {
-		//파일을 업로드할 물리적 위치: 특정 폴더를 지정해서
-		String app =  "d://app" + request.getContextPath();
-		String folder = app 
-					+ "/upload/" + category 
-					+ new SimpleDateFormat("/yyyy/MM/dd").format(new Date());
-		/*
-		//파일을 업로드할 물리적 위치: application내부에
-		//D:\Study_Spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\iot\resources
-		String resources 
-		= session.getServletContext().getRealPath("resources");
-		//..resources/upload/notice/2022/07/05/abc.txt
-		//..resources/upload/board/2022/07/06/abc.txt
-		//..resources/upload/myinfo/2022/07/05/abc.txt
-		String folder 
-		= resources + "/upload/" + category 
-		+ new SimpleDateFormat("/yyyy/MM/dd").format(new Date()) ;
-		 */
-		
-		File dir = new File( folder );
-		if( ! dir.exists() ) dir.mkdirs();
-		
-		//실제로 서버에 파일을 업로드할때는 id 를 부여하여 업로드한다
-		String uuid = UUID.randomUUID().toString() 
-					+ "_" + file.getOriginalFilename() ;
-		//afgr7834-fgjklr234j_abc.txt
-		try {
-			file.transferTo( new File(folder, uuid) );
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-		//folder: D://..resources/upload/myinfo/2022/07/05
-		//resources: D://..resources
-		//upload/notice/2022/07/05/afgr7834-fgjklr234j_abc.txt
-		//d://app/iot/upload/notice/2022/07/05/afgr7834-fgjklr234j_abc.txt
-//		return folder.substring(resources.length()+1) + "/" + uuid;
-		return folder.substring(app.length()+1) + "/" + uuid;
-	}
-	
-	
 	//RestAPI요청
 	public String requestAPI(StringBuffer url, String property) {
 		String result = null;
@@ -182,7 +110,7 @@ public class CommonService {
 	    return result;
 	}
 	
-	//회원가입축하 이메일전송하기(누구에게 어떤파일을 첨부해서 메일전송)
+/*	//회원가입축하 이메일전송하기(누구에게 어떤파일을 첨부해서 메일전송)
 	public void sendWelcomeJoin(String email
 							, String name, String attach) {
 		HtmlEmail mail = new HtmlEmail();
@@ -198,15 +126,11 @@ public class CommonService {
 			mail.setFrom("관리자이메일주소", "IoT과정 관리자");
 			mail.addTo(email, name);
 			
-			mail.setSubject("한울 IoT 융합SW 개발자 과정 가입 축하");
+			mail.setSubject("SCLASS 회원가입을 축하");
 			StringBuffer msg = new StringBuffer();
 			msg.append("<html>");
 			msg.append("<body>");
-			msg.append("<h3><a target='_blank' href='http://hanuledu.co.kr/'>한울</a></h3>");
-			msg.append("<hr>");
-			msg.append("<p>한울 IoT 융합SW 개발자 과정 가입을 축하합니다!</p>");
-			msg.append("<p>프로젝트까지 잘 마무리합시다</p>");
-			msg.append("<p>입교시 첨부된 파일을 확인하신후 등교하시기 바랍니다</p>");			
+			msg.append("<p>SCLASS 회원가입을 축하합니다!</p>");	
 			msg.append("</body>");
 			msg.append("</html>");
 			mail.setHtmlMsg(msg.toString());
@@ -221,7 +145,7 @@ public class CommonService {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	*/
 	
 	
 	//재발급 비밀번호전송하기
@@ -231,7 +155,7 @@ public class CommonService {
 		mail.setDebug(true);
 		mail.setCharset("utf-8");
 		
-		mail.setAuthentication("ojink2", "");
+		mail.setAuthentication("open400", "");
 //		mail.setAuthentication("관리자이메일아이디", "해당이메일아이디의비번");
 		mail.setSSLOnConnect(true); //로그인버튼클릭하기
 		

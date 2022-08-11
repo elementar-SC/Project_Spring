@@ -1,5 +1,0 @@
-package com.hanul.lee;
-
-public class LeeMemberVO {
-	private String id, pw ,phone, address, post, name, admin, salt, salt_pw, social
-}

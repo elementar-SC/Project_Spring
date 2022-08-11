@@ -16,6 +16,20 @@ var member =
 	
 	space: /\s/g,
 	
+	//입력 이메일 상태확인
+	email_status: function(email){
+		var reg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+		
+		if( email=='' )		return this.common.empty;
+		else if( email.match(this.space) )	return this.common.space;
+		else if( reg.test(email) ) 			return this.email.valid;
+		else								return this.email.invalid;
+	},
+	
+	email: {
+		valid: { code:'valid', desc:'사용가능한 이메일형식입니다'},
+		invalid: { code:'invalid', desc:'이메일형식이 맞지 않습니다'},
+	},
 	
 	//아이디 중복확인 상태확인
 	id_usable: function( usable ){

@@ -6,7 +6,7 @@
 <head>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>SCLASS</title>
 <style type="text/css">
 
 html { 
@@ -24,7 +24,7 @@ body {
 	/* background-image: url("resources/images/background.jpg");
     background-repeat : no-repeat;
     background-size: cover;
-    overflow: hidden; */
+    */
 }
 ul { 
 	list-style-type:none; 
@@ -63,6 +63,7 @@ a:link, a:visited {text-decoration:none; }
 a{margin: 5px 0; font-size: 18px; background: #D2C3BC; opacity: 80%}
 li {color:white;}
 </style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class='center'>
@@ -72,15 +73,14 @@ li {color:white;}
 		<li><input type='text' id='id' class='chk' placeholder="아이디"></li>
 		<li><input type='password' id='pw' class='chk' placeholder="비밀번호"></li>
 		<li><input type='button' value='로그인' onclick="login()"></li>
-		<li><a href='member'><input type='button' value='회원가입'></a></li>
-		<li><a href="">비밀번호찾기</a></li>
+		<li><a href='member'><input type='button' value='회원가입' style="background-color: gray;"></a></li>
+		<li><a href="findPw">비밀번호찾기</a></li>
 		<li><hr></li>
-		<li><button class='btn-social-login' style='background:#1FC700'><i class="xi-3x xi-naver"></i></button>
-		<button class='btn-social-login' style='background:#FFEB00'><i class="xi-3x xi-kakaotalk text-dark"></i></button></li>
+		<li><button onclick='location="naver_login"' class='btn-social-login' style='background:#1FC700'><i class="xi-3x xi-naver"></i></button>
+		<button onclick='location="kakao_login"' class='btn-social-login' style='background:#FFEB00'><i class="xi-3x xi-kakaotalk text-dark"></i></button></li>
 	</ul>
 	</div>
 </div>
-
 <script type="text/javascript">
 $('#pw').keyup(function(e){
 	if( e.keyCode==13 ) login();

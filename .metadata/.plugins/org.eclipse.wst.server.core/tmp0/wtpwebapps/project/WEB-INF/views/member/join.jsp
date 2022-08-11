@@ -5,74 +5,171 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-body {
-	margin: 0 auto;
-	text-align: center;
-	min-width:1280px; 
-	background-image: url("resources/images/background.jpg");
-    background-repeat : no-repeat;
-    background-size: cover;
-    overflow: hidden;
+/* 화면 너비 0 ~ 1200px */
+@media (max-width: 1220px){
+    aside {width: 40%;}
+    section {width: 60%;}
+    article {width: 100%; height: 300px;}
 }
-table tr td { text-align:left; padding-left: 10px }
-p { margin: 20px auto; text-align:right; color: #3367d6 }
+/* 화면 너비 0 ~ 768px */
+@media (max-width: 768px){
+    aside {width: 100%; height: 300px;}
+    section {width: 100%; height: 300px;}
+}
+/* 화면 너비 0 ~ 480px */
+@media (max-width: 480px){
+    header {height: 300px;}
+    aside {height: 200px;}
+    section {height: 200px;}
+}
+h4{
+	text-align: left;
+	margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin: 5px 0;
+}
+html { 
+	background: url("resources/images/background.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+body {
+	device-height:100%;
+	device-width:100%;
+	margin: 0 auto;
+}
+.join {
+	margin: 100px 0;
+    width: 630px;
+    height: 800px;
+    background: #ebe7da;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+  	left: 50%;
+ 	transform: translateX(-50%);
+ 	opacity: 0.9;
+}
+p { margin: 20px auto; color: #3367d6; text-align: left;}
 .valid, .invalid { font-size:14px; font-weight:bold; } 
 .valid { color:green }
 .invalid { color:red }
-[name=address]{ width:calc(100% - 22px); margin-top:3px }
-.ui-datepicker table tr, .ui-datepicker table tr td { height: inherit; }
 #delete { position: relative; right: 30px; }
+input {
+	width: 280px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 15px;
+    border: 1px solid #AB92BF;
+}
+
+a.btn-fill-s{
+	padding: 3px 10px;
+	border:1px solid #c4dafc;
+	border-radius:3px;
+	background-color:#CEF9F2;
+	color:#0000cd;
+	font-size:13px;
+	font-weight:bold;
+	box-shadow:2px 2px 2px #029694;
+}
+.btnSet { margin-top:30px; margin-bottom:30px; }
+a.btn-empty {
+	background-color: #fff;
+	color:#3367d6;	
+}
+a {
+    cursor: pointer;
+}
+a.btn-fill, a.btn-empty {
+	height:28px;
+	padding: 3px 15px; 
+	border:1px solid #3367d6;
+	border-radius:3px; 
+	box-shadow:2px 2px 3px #029694; 
+	margin: 0 10px;
+} 
+a.btn-fill {
+    background-color: #CEF9F2;
+    color: #3367d6;
+}
+.input_box {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 29px;
+    line-height: 29px;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+    z-index: 10;
+}
+.rad{
+	border-radius: 11px;
+}
+#container{
+	width: 400px;
+}
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body>
-
+<header>
+	<h1 style="display: none;">1</h1>
+</header>
+<div class="join">
 <h3>회원가입</h3>
-<p class='w-px500'>* 항목은 필수입력입니다</p>
+<p>* 항목은 필수입력입니다</p>
 <form action='join' method='post'>
-<table class='w-px500'>
-	<tr><th class='w-px120'>* 성명</th>
-		<td><input type='text' name='name'></td>
-	</tr>
-	<tr><th>* 아이디</th>
-		<td>
-			<input type='text' name='id' class='chk' >
-			<a class='btn-fill-s' onclick='id_check()'>아이디중복확인</a>
-			<div class='valid'>아이디를 입력하세요(영문소문자,숫자만 가능)</div>
-		</td>
-	</tr>
-	<tr><th>* 비밀번호</th>
-		<td>
-			<input type='password' name='pw' class='chk'><br>
-			<div class='valid'>비밀번호를 입력하세요(영문 대/소문자,숫자를 모두 포함)</div>
-		</td>
-	</tr>
-	<tr><th>* 비밀번호 확인</th>
-		<td>
-			<input type='password' name='pw_ck' class='chk'><br>
-			<div class='valid'>비밀번호를 다시 입력하세요</div>
-		</td>
-	</tr>
-	<tr><th>전화번호</th>
-		<td><input type='text' name='phone' maxlength="13"></td>
-	</tr>
-	<tr><th>주소</th>
-		<td>
-			<a class='btn-fill-s' onclick='post()'>우편번호찾기</a>
-			<input class='w-px50' type='text' name='post' readonly>
-			<input type='text' name='address' readonly>
-			<input type='text' name='address'>
-		</td>
-	</tr>
-</table>
+<div id="container">
+	<div id="content">
+		<h4><label>* 아이디</label></h4>
+	</div>
+		<input type='text' name='id' class='chk, rad' >
+		<a class='btn-fill-s' onclick='id_check()'>중복확인</a>
+		<br>
+		<span class='valid'>아이디를 입력하세요</span>
+	<div id="content">
+		<h4><label>* 비밀번호</label></h4>
+	</div>
+		<input type='password' name='pw' class='chk, rad'><br>
+		<span class='valid'>비밀번호를 입력하세요(영문 대/소문자,숫자를 모두 포함)</span>
+	<div id="content">
+		<h4><label>* 비밀번호 확인</label></h4>
+	</div>
+		<input type='password' name='pw_ck' class='chk, rad'><br>
+		<div class='valid'>비밀번호를 다시 입력하세요</div>
+	<div id="content">
+		<h4><label>* 성명</label></h4>
+	</div>
+	<input type='text' name='name' class='rad'>
+	
+	<div id="content">
+		<h4><label>이메일</label></h4>
+	</div>
+	<input type='text' name='email' class='chk, rad'><br>
+	<span class='valid'>이메일을 입력하세요</span>
+	
+	<div id="content">
+		<h4><label>전화번호</label></h4>
+	</div>
+	<input type='text' name='phone' maxlength="13" class='rad'>
+	
+</div>
 </form>
 <div class='btnSet'>
 	<a class='btn-fill' onclick='join()'>회원가입</a>
 	<a class='btn-empty' onclick='history.go(-1)'>취소</a>
 </div>
+</div>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src='js/member_check.js?<%=new java.util.Date()%>'></script>
+<script src='resources/js/member_check.js?'></script>
 <script>
 //아이디 중복확인 요청
 function id_check(){
@@ -114,23 +211,6 @@ $('.chk').keyup(function(e){
 			.removeClass().addClass( status.code );
 	}
 });
-
-// 우편번호찾기
-function post(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-        	console.log( data )
-        	$('[name=post]').val( data.zonecode ); //우편번호
-        	//도로명:R, 지번:J
-        	var address = data.userSelectedType=='R' 
-        				? data.roadAddress : data.jibunAddress;
-        	if( data.buildingName != '' ) 
-        		address += ' ('+data.buildingName+')';
-        	$('[name=address]').eq(0).val( address );
-//         	$('[name=address]:eq(0)').val( address );
-        }
-    }).open();	
-}
 
 //form태그 submit처리
 function join(){

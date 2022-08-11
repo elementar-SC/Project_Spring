@@ -36,7 +36,7 @@ select salt from member where id=#{id}
 </select>
 
 <!-- 로그인 -->
-<select id="login" resultType="member.MemberVO">
+<select id="login" resultType="lee.LeeMemberVO">
 select * from member
 where id=#{id} and salt_pw=#{pw}
 </select>
