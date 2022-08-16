@@ -155,7 +155,7 @@ public class CommonService {
 		mail.setDebug(true);
 		mail.setCharset("utf-8");
 		
-		mail.setAuthentication("open400", "");
+		mail.setAuthentication("open400", "qkqhdirkqjfu1!");
 //		mail.setAuthentication("관리자이메일아이디", "해당이메일아이디의비번");
 		mail.setSSLOnConnect(true); //로그인버튼클릭하기
 		
@@ -168,7 +168,6 @@ public class CommonService {
 			
 			//임시비밀번호로 사용할 랜덤문자열 생성
 			pw = UUID.randomUUID().toString();
-			//adfaf-ger7798af-adgarae234da
 			pw = pw.substring( pw.lastIndexOf("-")+1 );
 			
 			mail.setSubject(name + " 비밀번호 재발급"); //제목쓰기

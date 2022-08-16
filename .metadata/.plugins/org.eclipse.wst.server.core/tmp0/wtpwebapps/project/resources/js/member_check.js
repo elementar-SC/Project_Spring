@@ -9,8 +9,8 @@ var member =
 	tag_status: function( tag ){
 		var name = tag.attr('name');
 		if( name=='pw_ck' ) return this.pw_ck_status( tag.val() );
-		else if( name=='pw' ) return this.pw_status( tag.val() );
-		else if( name=='id' ) return this.id_status( tag.val() );
+		else if( name=='teacher_pw' ) return this.pw_status( tag.val() );
+		else if( name=='teacher_id' ) return this.id_status( tag.val() );
 		else if( name=='email' ) return this.email_status( tag.val() );
 	},
 	
@@ -81,7 +81,7 @@ var member =
 	
 	//입력한 비밀번호확인(재입력) 상태확인
 	pw_ck_status: function(pw_ck){
-		if( pw_ck==$('[name=pw]').val() ) 	return this.pw.equal;
+		if( pw_ck==$('[name=teacher_pw]').val() ) 	return this.pw.equal;
 		else								return this.pw.notEqual
 	},	
 	

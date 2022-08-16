@@ -37,7 +37,7 @@ public class LeeController {
 	public String join(LeeMemberVO vo, HttpServletRequest req) {
 		//입력한 비밀번호를 암호화하기 위한 salt생성
 		String salt = common.generateSalt();
-		String salt_pw = common.getEncrypt(vo.getPw(), salt);
+		String salt_pw = common.getEncrypt(vo.getTeacher_pw(), salt);
 		vo.setSalt(salt);
 		vo.setSalt_pw(salt_pw);
 		
@@ -118,7 +118,7 @@ public class LeeController {
 			//화면에서 입력한 아이디에 대한 임시비밀번호를 입력한 이메일로 전송한다
 			//임시비밀번호를 랜덤하게 만들어내도록 한다
 			String pw = common.resetPassword(
-							vo.getId(), vo.getName(), vo.getEmail());
+							vo.getTeacher_id(), vo.getTeacher_name(), vo.getEmail());
 			
 			//비밀번호를 만들기 위해서 암호화에 사용할 salt
 			String salt = common.generateSalt();
@@ -154,7 +154,7 @@ public class LeeController {
 		}
 		
 		//로그인처리 요청
-		@ResponseBody @RequestMapping("/home")
+		@ResponseBody @RequestMapping("")
 		public boolean login(String id, String pw, HttpSession session) {
 			//회원id에 해당하는 salt를 조회
 			String salt = service.member_salt(id);
@@ -222,19 +222,19 @@ public class LeeController {
 		//카카오 프로필정보를 사이트회원정보를 저장하자
 		LeeMemberVO vo = new LeeMemberVO();
 		vo.setSocial("K");
-		vo.setId( json.get("id").toString() );
+		vo.setTeacher_id( json.get("id").toString() );
 		json = json.getJSONObject("kakao_account");
-		vo.setName( json.has("name") ? json.getString("name") : "");
-//		vo.setEmail( json.getString("email") );
-		if( vo.getName().isEmpty() ) {
+		vo.setTeacher_name( json.has("name") ? json.getString("name") : "");
+		vo.setEmail( json.has("email") ? json.getString("email"): "" );
+		if( vo.getTeacher_name().isEmpty() ) {
 			//name 정보가 없으면 nickname 을 넣는다
 			String name = json.getJSONObject("profile").getString("nickname");
-			vo.setName( name );
+			vo.setTeacher_name( name );
 		}
 		
 		//카카오로그인이 처음이면(아이디존재여부) 신규저장 아니면 변경저장
 		//0? false : true
-		if( service.member_id_check(vo.getId()) )
+		if( service.member_id_check(vo.getTeacher_id()) )
 			service.member_update(vo);
 		else
 			service.member_join(vo);
@@ -295,14 +295,14 @@ public class LeeController {
 			LeeMemberVO vo = new LeeMemberVO();
 			vo.setSocial("N");
 			json = json.getJSONObject("response");
-			vo.setId( json.getString("id") );
-			vo.setName( json.has("name") ? json.getString("name") 
+			vo.setTeacher_id( json.getString("id") );
+			vo.setTeacher_name( json.has("name") ? json.getString("name") 
 										 : json.getString("nickname") );
-//			vo.setEmail( json.getString("email") );
+			vo.setEmail( json.getString("email") );
 			
 			//네이버로그인이 처음이면(아이디존재여부) 신규저장  아니면 변경저장
 			//0 ? false : true
-			if( service.member_id_check( vo.getId() ) ) {
+			if( service.member_id_check( vo.getTeacher_id() ) ) {
 				//변경저장
 				service.member_update(vo);
 			}else {

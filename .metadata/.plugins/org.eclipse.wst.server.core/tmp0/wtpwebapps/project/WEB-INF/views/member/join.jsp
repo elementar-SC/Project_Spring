@@ -40,18 +40,18 @@ body {
 	device-width:100%;
 	margin: 0 auto;
 }
+
 .join {
-	margin: 100px 0;
     width: 630px;
-    height: 800px;
-    background: #ebe7da;
+    height: 700px;
+    background: #e9e9e9;
     border-radius: 20px;
     display: flex;
     align-items: center;
     flex-direction: column;
     position: absolute;
-  	left: 50%;
- 	transform: translateX(-50%);
+  	left:50%; top:50%;
+	transform:translate(-50%, -50%);
  	opacity: 0.9;
 }
 p { margin: 20px auto; color: #3367d6; text-align: left;}
@@ -71,11 +71,11 @@ a.btn-fill-s{
 	padding: 3px 10px;
 	border:1px solid #c4dafc;
 	border-radius:3px;
-	background-color:#CEF9F2;
-	color:#0000cd;
+	background-color: #cdcbe8;
+    color: #3367d6;
 	font-size:13px;
 	font-weight:bold;
-	box-shadow:2px 2px 2px #029694;
+	box-shadow: 2px 2px 3px #a7a7a7;
 }
 .btnSet { margin-top:30px; margin-bottom:30px; }
 a.btn-empty {
@@ -86,15 +86,15 @@ a {
     cursor: pointer;
 }
 a.btn-fill, a.btn-empty {
-	height:28px;
-	padding: 3px 15px; 
-	border:1px solid #3367d6;
-	border-radius:3px; 
-	box-shadow:2px 2px 3px #029694; 
-	margin: 0 10px;
+	height: 28px;
+    padding: 3px 15px;
+    border: 1px solid #9593b1;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px #a7a7a7;
+    margin: 0 10px;
 } 
 a.btn-fill {
-    background-color: #CEF9F2;
+    background-color: #cdcbe8;
     color: #3367d6;
 }
 .input_box {
@@ -116,6 +116,7 @@ a.btn-fill {
 	width: 400px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body>
@@ -127,38 +128,34 @@ a.btn-fill {
 <p>* 항목은 필수입력입니다</p>
 <form action='join' method='post'>
 <div id="container">
-	<div id="content">
-		<h4><label>* 아이디</label></h4>
-	</div>
-		<input type='text' name='id' class='chk, rad' >
+	<div>
+		<h4>* 아이디</h4>
+		<input type='text' name='teacher_id' class='chk rad' >
 		<a class='btn-fill-s' onclick='id_check()'>중복확인</a>
 		<br>
-		<span class='valid'>아이디를 입력하세요</span>
-	<div id="content">
-		<h4><label>* 비밀번호</label></h4>
+		<div><span class='valid'>아이디를 입력하세요</span></div>
 	</div>
-		<input type='password' name='pw' class='chk, rad'><br>
-		<span class='valid'>비밀번호를 입력하세요(영문 대/소문자,숫자를 모두 포함)</span>
-	<div id="content">
+	
+	<div>
+		<h4>* 비밀번호</h4>
+		<input type='password' name='teacher_pw' class='rad'><br>
+		<div><span class='valid'>비밀번호를 입력하세요</span></div>
+		
 		<h4><label>* 비밀번호 확인</label></h4>
-	</div>
-		<input type='password' name='pw_ck' class='chk, rad'><br>
-		<div class='valid'>비밀번호를 다시 입력하세요</div>
-	<div id="content">
+		<input type='password' name='pw_ck' class='rad'><br>
+		<div><span class='valid'>비밀번호를 다시 입력하세요</span></div>
+	</div>		
+		
 		<h4><label>* 성명</label></h4>
-	</div>
-	<input type='text' name='name' class='rad'>
-	
-	<div id="content">
+		<input type='text' name='teacher_name' class='rad'>
+	<div>
 		<h4><label>이메일</label></h4>
+		<input type='text' name='email' class='rad'><br>
+		<div><span class='valid'>이메일을 입력하세요</span></div>
 	</div>
-	<input type='text' name='email' class='chk, rad'><br>
-	<span class='valid'>이메일을 입력하세요</span>
 	
-	<div id="content">
 		<h4><label>전화번호</label></h4>
-	</div>
-	<input type='text' name='phone' maxlength="13" class='rad'>
+		<input type='text' name='teacher_phone' maxlength="13" class='rad'>
 	
 </div>
 </form>
@@ -173,7 +170,7 @@ a.btn-fill {
 <script>
 //아이디 중복확인 요청
 function id_check(){
-	var $id = $('[name=id]');
+	var $id = $('[name=teacher_id]');
 	if( $id.hasClass('chked') ) return;  //이미 중복확인했다면 다시 할 필요없음
 		
 	var data = member.tag_status( $id );
@@ -200,11 +197,11 @@ function id_check(){
 }
 
 $('.chk').keyup(function(e){
-	if( $(this).attr('name')=='id' && e.keyCode==13 ){
+	if( $(this).attr('name')=='teacher_id' && e.keyCode==13 ){
 		id_check();
 	}else{
 		//아이디 태그에 뭔가 입력한다면 중복확인했음을 삭제 
-		if( $(this).attr('name')=='id' ) $(this).removeClass('chked')
+		if( $(this).attr('name')=='teacher_id' ) $(this).removeClass('chked')
 			
 		var status = member.tag_status( $(this) );
 		$(this).siblings('div').text( status.desc )
@@ -214,33 +211,34 @@ $('.chk').keyup(function(e){
 
 //form태그 submit처리
 function join(){
-	if( $('[name=name]').val()=='' ){
+	if( $('[name=teacher_name]').val()=='' ){
 		alert('성명을 입력하세요');
-		$('[name=name]').focus();
+		$('[name=teacher_name]').focus();
 		return;
 	}
 	
 	//아이디인 경우: 중복확인여부
-	if( $('[name=id]').hasClass('chked') ){
+	if( $('[name=teacher_id]').hasClass('chked') ){
 		//중복확인했고 + invalid -> 이미 사용중인 아이디 
-		if( $('[name=id]').siblings('div').hasClass('invalid') ){
+		if( $('[name=teacher_id]').siblings('div').hasClass('invalid') ){
 			alert( '회원가입 불가\n' + member.id.unusable.desc );
-			$('[name=id]').focus();
+			$('[name=teacher_id]').focus();
 			return;
 		}
 	}else{
 		//중복확인하지 않은 경우
-		if( ! validate_check( $('[name=id]') ) ) return;
+		if( ! validate_check( $('[name=teacher_id]') ) ) return;
 		else{
 			alert( '회원가입 불가\n' + member.id.valid.desc );
-			$('[name=id]').focus();
+			$('[name=teacher_id]').focus();
 			return;
 		}
 	}
 	
 	//비번, 비번확인, 이메일
-	if( ! validate_check( $('[name=pw]') ) ) return;
+	if( ! validate_check( $('[name=teacher_pw]') ) ) return;
 	if( ! validate_check( $('[name=pw_ck]') ) ) return;
+	if( ! validate_check( $('[name=email]') ) ) return;
 	$('form').submit();
 }
 

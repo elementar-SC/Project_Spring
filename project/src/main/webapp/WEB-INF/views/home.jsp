@@ -63,24 +63,28 @@ a:link, a:visited {text-decoration:none; }
 a{margin: 5px 0; font-size: 18px; background: #D2C3BC; opacity: 80%}
 li {color:white;}
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class='center'>
-	<%-- <a href='<c:url value="/"/>'><img src='로고이미지'></a> --%>
+	<img src='img/logo.png'>
 	<div class='login'>
 	<ul>
 		<li><input type='text' id='id' class='chk' placeholder="아이디"></li>
 		<li><input type='password' id='pw' class='chk' placeholder="비밀번호"></li>
 		<li><input type='button' value='로그인' onclick="login()"></li>
 		<li><a href='member'><input type='button' value='회원가입' style="background-color: gray;"></a></li>
-		<li><a href="findPw">비밀번호찾기</a></li>
+		<li><a href='findPw'>비밀번호찾기</a></li>
 		<li><hr></li>
 		<li><button onclick='location="naver_login"' class='btn-social-login' style='background:#1FC700'><i class="xi-3x xi-naver"></i></button>
 		<button onclick='location="kakao_login"' class='btn-social-login' style='background:#FFEB00'><i class="xi-3x xi-kakaotalk text-dark"></i></button></li>
 	</ul>
 	</div>
 </div>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src='resources/js/member_check.js?'></script>
 <script type="text/javascript">
 $('#pw').keyup(function(e){
 	if( e.keyCode==13 ) login();
